@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns:context="http://www.springframework.org/schema/context"
+    xsi:schemaLocation="http://www.springframework.org/schema/beans
+        http://www.springframework.org/schema/beans/spring-beans.xsd
+        http://www.springframework.org/schema/context
+    	http://www.springframework.org/schema/context/spring-context.xsd">
+    
+    <!-- Don't forget to add prefix and schema location-->
+    <context:property-placeholder 
+    	location="classpath:dragon.properties"/>
+   
+    <!-- bean definitions go here -->
+    <bean id="Element"
+    	class="classes.element.fire">    
+    </bean>
+    <bean id="Element2"
+    	class="classes.element.venom">    
+    </bean>
+    
+    <bean id="myDragon"
+    	class="classes.dragon.Rudronth" scope="prototype">
+  		
+  		<!-- Properties file injection -->
+    	<property name="atk" value="${dragon.atk}"></property>
+    	<property name="def" value="${dragon.def}"></property>
+    	<property name="hp" value="${dragon.hp}"></property>
+    	    	
+    	<!-- Setter injection --> 
+    	<property name="element" ref="Element"></property>
+    	
+    </bean>
+    <bean id="myDragon2"
+    	class="classes.dragon.Brezzas" scope="prototype">        	
+    	
+    	<!-- Dependency injection -->
+    	<constructor-arg index="0" ref="Element2"></constructor-arg>
+    	<constructor-arg index="1" value="${dragon2.atk}"></constructor-arg>
+    	<constructor-arg index="2" value="${dragon2.def}"></constructor-arg>
+    	<constructor-arg index="3" value="${dragon2.hp}"></constructor-arg>
+    	    
+    </bean>
+</beans>
